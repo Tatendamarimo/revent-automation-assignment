@@ -269,31 +269,7 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 - Review Remarks column syntax
 - Check `report_merger.py` for supported transformations
 
----
 
-## License
-
-This project is created for educational and assignment purposes.
-
----
-
-## Author
-
-**Tatenda Marimo**
-
-GitHub: [@Tatendamarimo](https://github.com/Tatendamarimo)
-
----
-
-## Support
-
-For issues or questions:
-1. Check the individual README files in each assignment folder
-2. Review the troubleshooting sections
-3. Check log files for detailed error messages
-4. Open an issue on GitHub
-
----
 
 ## Submission Checklist
 
@@ -310,4 +286,3 @@ For issues or questions:
 
 ---
 
-**Last Updated:** January 9, 2026
