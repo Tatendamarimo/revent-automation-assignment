@@ -15,6 +15,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import random
 import logging
+from tqdm import tqdm
 from config import *
 
 # Set up logging
@@ -436,10 +437,8 @@ class NoonScraper:
             
             logger.info(f"Found {len(product_urls)} products to scrape")
             
-            # Scrape each product
-            for idx, url in enumerate(product_urls, 1):
-                logger.info(f"Progress: {idx}/{len(product_urls)}")
-                
+            # Scrape each product with progress bar
+            for url in tqdm(product_urls, desc=f"Scraping '{keyword}'", unit="product"):
                 product_data = self.scrape_product_details(url, keyword)
                 all_data.extend(product_data)
                 

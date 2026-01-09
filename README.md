@@ -68,6 +68,116 @@ Automated script to merge Amazon and Noon sales reports using dynamic column map
 
 ---
 
+## Why This Solution?
+
+### Technical Decisions
+
+#### Assignment 1: Why Selenium Over BeautifulSoup?
+
+**Challenge:** Noon.com is a modern e-commerce platform with heavy JavaScript rendering and dynamic content loading.
+
+**Decision:** Selenium WebDriver
+
+**Rationale:**
+- **JavaScript Execution:** Product prices, seller information, and modals are loaded dynamically via JavaScript. BeautifulSoup can only parse static HTML.
+- **Multi-Seller Modal:** The "Other Sellers" button triggers a JavaScript modal that doesn't exist in the initial HTML. Selenium can click buttons and wait for dynamic content.
+- **Anti-Scraping Measures:** Noon.com detects headless browsers. Selenium allows us to:
+  - Set realistic user agents
+  - Disable automation flags
+  - Add random delays to mimic human behavior
+  - Scroll and interact naturally
+
+**Trade-offs Considered:**
+- **Speed:** Selenium is slower than BeautifulSoup, but accuracy and completeness are prioritized
+- **Resource Usage:** Higher memory/CPU usage, but necessary for JavaScript-heavy sites
+- **Maintenance:** CSS selectors may change, but the modular `config.py` makes updates easy
+
+#### Assignment 1: Why Modular Architecture?
+
+**Structure:** Separated into `main.py`, `noon_scraper.py`, `excel_exporter.py`, and `config.py`
+
+**Benefits:**
+- **Maintainability:** Each module has a single responsibility
+- **Testability:** Individual components can be tested in isolation
+- **Reusability:** `NoonScraper` class can be imported and used in other projects
+- **Configuration:** CSS selectors and timeouts centralized in `config.py` for easy updates
+
+#### Assignment 2: Why Pandas Over Manual Processing?
+
+**Challenge:** Merge two different data sources with complex transformations.
+
+**Decision:** Pandas DataFrames
+
+**Rationale:**
+- **Data Transformation:** Built-in functions for date parsing, calculations, and type conversions
+- **Performance:** Vectorized operations are faster than row-by-row loops for large datasets
+- **Excel Integration:** Native support for reading/writing Excel with `openpyxl` engine
+- **Data Validation:** Easy to handle missing values, type mismatches, and edge cases
+
+#### Assignment 2: Why Dynamic Mapping?
+
+**Challenge:** Create a reusable script with zero hardcoding.
+
+**Decision:** Configuration-driven approach using "Column Relations Sheet"
+
+**Benefits:**
+- **Reusability:** Same script works for any Excel file with the same structure
+- **Flexibility:** Business users can update mappings without touching code
+- **Maintainability:** Adding new transformations doesn't require code changes
+- **Scalability:** Can handle new columns or data sources by updating the config sheet
+
+### Design Patterns Used
+
+1. **Object-Oriented Design (OOP)**
+   - `NoonScraper` and `ReportMerger` classes encapsulate related functionality
+   - Private methods (prefixed with `_`) hide implementation details
+   - Public methods provide clean interfaces
+
+2. **Error Handling**
+   - Try-except blocks prevent single failures from crashing entire process
+   - Graceful degradation (e.g., "N/A" for missing data)
+   - Comprehensive logging for debugging
+
+3. **Configuration Pattern**
+   - Externalized configuration in `config.py` and Excel sheets
+   - Easy to modify behavior without code changes
+   - Supports different environments (headless vs. GUI mode)
+
+4. **Progress Feedback**
+   - `tqdm` progress bars show real-time status
+   - Logging provides detailed execution history
+   - User-friendly console output
+
+### Performance Optimizations
+
+#### Assignment 1: Scraping Efficiency
+- **Smart Waiting:** Uses explicit waits instead of fixed `time.sleep()` where possible
+- **Batch Processing:** Collects all product URLs before scraping to optimize navigation
+- **Minimal Requests:** Extracts maximum data per page visit
+- **Resource Cleanup:** Properly closes browser to free memory
+
+#### Assignment 2: Data Processing Speed
+- **Vectorized Operations:** Uses pandas built-in functions instead of Python loops
+- **Memory Efficiency:** Processes data in chunks where applicable
+- **Minimal I/O:** Reads Excel file once, writes once
+- **Progress Tracking:** `tqdm` adds negligible overhead while improving UX
+
+### Scalability Considerations
+
+**Assignment 1:**
+- Can handle 100+ products per keyword
+- Supports multiple keywords in single run
+- Configurable limits to control execution time
+- Logging helps identify bottlenecks
+
+**Assignment 2:**
+- Handles 1000+ rows efficiently
+- Works with any number of columns
+- Supports multiple transformation types
+- Can be extended to handle additional data sources
+
+---
+
 ## Quick Start
 
 ### Prerequisites
@@ -229,12 +339,14 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 | webdriver-manager | Latest | Automatic ChromeDriver installation and updates |
 | pandas | Latest | Data manipulation and DataFrame operations |
 | openpyxl | Latest | Excel file creation and formatting |
+| tqdm | Latest | Progress bars for real-time scraping feedback |
 
 ### Assignment 2: Report Merger
 | Library | Version | Purpose |
 |---------|---------|---------|
 | pandas | ≥1.3.0 | Data manipulation, merging, and transformations |
 | openpyxl | ≥3.0.0 | Excel file reading and writing |
+| tqdm | Latest | Progress bars for data processing feedback |
 
 ---
 
@@ -268,21 +380,4 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 **Transformation not working:**
 - Review Remarks column syntax
 - Check `report_merger.py` for supported transformations
-
-
-
-## Submission Checklist
-
-- [x] Python scripts for both assignments
-- [x] Output Excel files included
-- [x] README.md files with:
-  - [x] How to run the scripts
-  - [x] Logic explanation
-  - [x] Libraries used
-- [x] requirements.txt for dependencies
-- [x] Sample output files
-- [x] Code comments and documentation
-- [x] Git repository with proper structure
-
----
 

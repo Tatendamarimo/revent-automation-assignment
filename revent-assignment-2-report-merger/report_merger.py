@@ -8,6 +8,7 @@ import pandas as pd
 from pathlib import Path
 import sys
 import glob
+from tqdm import tqdm
 
 
 
@@ -200,7 +201,7 @@ class ReportMerger:
         
         processed_rows = []
         
-        for _, row in self.noon_data.iterrows():
+        for _, row in tqdm(self.noon_data.iterrows(), total=len(self.noon_data), desc="Processing Noon", unit="row"):
             processed_row = {'Source': 'Noon'}
             
             for summary_col, noon_col in noon_mapping.items():
@@ -229,7 +230,7 @@ class ReportMerger:
         
         processed_rows = []
         
-        for _, row in self.amazon_data.iterrows():
+        for _, row in tqdm(self.amazon_data.iterrows(), total=len(self.amazon_data), desc="Processing Amazon", unit="row"):
             processed_row = {'Source': 'Amazon'}
             
             for summary_col, amazon_col in amazon_mapping.items():
