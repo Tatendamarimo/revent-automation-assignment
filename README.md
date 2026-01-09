@@ -2,7 +2,7 @@
 
 This repository contains two Python automation assignments for web scraping and data processing.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 revent-automation-assignment/
@@ -26,7 +26,7 @@ revent-automation-assignment/
 └── README.md                            # This file
 ```
 
-## 🎯 Assignments Overview
+## Assignments Overview
 
 ### Assignment 1: Noon Web Scraper
 
@@ -68,7 +68,7 @@ Automated script to merge Amazon and Noon sales reports using dynamic column map
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ python report_merger.py
 
 ---
 
-## 📊 Output Files
+## Output Files
 
 ### Assignment 1 Output
 - **Location:** `revent-assignment-1-noon-scraper/output/`
@@ -145,7 +145,7 @@ python report_merger.py
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### Assignment 1
 Edit `config.py` to customize:
@@ -162,7 +162,7 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 
 ---
 
-## 📝 Logic Explanation
+## Logic Explanation
 
 ### Assignment 1: Noon Scraper Logic
 
@@ -220,7 +220,7 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 
 ---
 
-## 🛠️ Libraries Used
+## Libraries Used
 
 ### Assignment 1: Noon Scraper
 | Library | Version | Purpose |
@@ -238,7 +238,7 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Assignment 1 Issues
 
@@ -271,13 +271,13 @@ Use the "Column Relations Sheet" in your Excel file to configure:
 
 ---
 
-## 📄 License
+## License
 
 This project is created for educational and assignment purposes.
 
 ---
 
-## 👤 Author
+## Author
 
 **Tatenda Marimo**
 
@@ -285,7 +285,7 @@ GitHub: [@Tatendamarimo](https://github.com/Tatendamarimo)
 
 ---
 
-## 📧 Support
+## Support
 
 For issues or questions:
 1. Check the individual README files in each assignment folder
@@ -295,7 +295,7 @@ For issues or questions:
 
 ---
 
-## ✅ Submission Checklist
+## Submission Checklist
 
 - [x] Python scripts for both assignments
 - [x] Output Excel files included
